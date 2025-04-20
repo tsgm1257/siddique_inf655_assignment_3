@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Ensure Link is imported
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -16,37 +16,96 @@ const SignUp = () => {
       await createUserWithEmailAndPassword(auth, email, password);
       console.log("User signed up successfully!");
       navigate("/dashboard"); // Redirect to dashboard after signup
-    } catch (error) {
-      setError(error.message);
-      console.error("Error signing up:", error);
+    } catch (signupError) {
+      setError(signupError.message);
+      console.error("Error signing up:", signupError);
     }
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        maxWidth: "300px",
+        margin: "auto",
+      }}
+    >
+      <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Sign Up</h2>
+      {error && (
+        <p style={{ color: "red", marginBottom: "10px", textAlign: "center" }}>
+          {error}
+        </p>
+      )}
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", flexDirection: "column" }}
+      >
+        <div style={{ marginBottom: "15px" }}>
+          <label
+            htmlFor="email"
+            style={{ display: "block", marginBottom: "5px" }}
+          >
+            Email:
+          </label>
           <input
             type="email"
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            style={{
+              width: "100%",
+              padding: "10px",
+              border: "1px solid #ddd",
+              borderRadius: "3px",
+              boxSizing: "border-box",
+            }}
           />
         </div>
-        <div>
-          <label>Password:</label>
+        <div style={{ marginBottom: "15px" }}>
+          <label
+            htmlFor="password"
+            style={{ display: "block", marginBottom: "5px" }}
+          >
+            Password:
+          </label>
           <input
             type="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            style={{
+              width: "100%",
+              padding: "10px",
+              border: "1px solid #ddd",
+              borderRadius: "3px",
+              boxSizing: "border-box",
+            }}
           />
         </div>
-        <button type="submit">Sign Up</button>
+        <button
+          type="submit"
+          style={{
+            backgroundColor: "#28a745",
+            color: "white",
+            padding: "10px 15px",
+            border: "none",
+            borderRadius: "3px",
+            cursor: "pointer",
+            marginBottom: "10px",
+          }}
+        >
+          Sign Up
+        </button>
       </form>
+      <p style={{ textAlign: "center", marginTop: "10px" }}>
+        Already have an account?{" "}
+        <Link to="/login" style={{ color: "#007bff" }}>
+          Log In
+        </Link>
+      </p>
     </div>
   );
 };
