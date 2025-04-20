@@ -96,11 +96,31 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
-      <h2>Your Tasks</h2>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "20px",
+      }}
+    >
+      <h2 style={{ marginBottom: "20px" }}>Your Tasks</h2>
       <TaskForm addTask={handleAddTask} />
       <TaskComponent tasks={tasks} deleteTask={handleDeleteTask} />
-      <button onClick={handleLogout}>Logout</button>
+      <button
+        onClick={handleLogout}
+        style={{
+          backgroundColor: "#6c757d",
+          color: "white",
+          padding: "10px 15px",
+          border: "none",
+          borderRadius: "3px",
+          cursor: "pointer",
+          marginTop: "20px",
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 };
