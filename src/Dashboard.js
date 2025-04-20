@@ -67,15 +67,13 @@ const Dashboard = () => {
   };
 
   const handleDeleteTask = async (taskId) => {
-    if (window.confirm("Are you sure you want to delete this task?")) {
-      try {
-        await deleteDoc(doc(db, "tasks", taskId));
-        console.log("Task deleted successfully!");
-      } catch (err) {
-        console.error("Error deleting task:", err);
-      }
-    }
-  };
+  try {
+    await deleteDoc(doc(db, "tasks", taskId));
+    console.log("Task deleted successfully!");
+  } catch (err) {
+    console.error("Error deleting task:", err);
+  }
+};
 
   const handleLogout = async () => {
     try {
